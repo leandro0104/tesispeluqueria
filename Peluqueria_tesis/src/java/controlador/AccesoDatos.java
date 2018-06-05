@@ -25,7 +25,9 @@ public class AccesoDatos {
     Producto pro;
     Trabajo t;
 
+
     Cita cit;
+
 
     HisMarca hm;
     HisCategoria hc;
@@ -668,7 +670,8 @@ public class AccesoDatos {
         }catch(Exception e){
             return null;
 
-     
+        }
+    }
     
     // Metodo para buscar marcas por categorias
     
