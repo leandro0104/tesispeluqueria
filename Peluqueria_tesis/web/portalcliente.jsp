@@ -45,7 +45,7 @@
 
   <body>
 
-      <%
+       <%
           
             HttpSession sesion = request.getSession();
             if(sesion.getAttribute("usu") != null){
@@ -70,7 +70,13 @@
             us = u.getNombre(); 
             uss=  u.getApellido();
             usss= us + " " +uss;
-            
+            String nomm = "";
+               String apee = "";
+               String passs1 = "";
+               String passs2 = "";
+               String tipp = "";
+               String tell="";
+               
             if (request.getParameter("btnreg") != null) {
                String dat= request.getParameter("txtdat");
                String mot = request.getParameter("txtmot");
@@ -89,6 +95,11 @@
                 for(int i=0;i<lista1.size();i++){
                     Servicio se = lista1.get(i);
                     int codi= se.getCod();
+                    String t= se.getTto();
+                    String d= se.getDia();
+                    String h= se.getHora();
+                    String te= se.getTelefono();
+                    String p =se.getProfesional();
             
             if (request.getParameter("btnmod")!= null) {
               tto = request.getParameter("txttto");
@@ -106,8 +117,25 @@
               }
           }
                 }
+                String e= u.getEmail();
+                if (request.getParameter("btnmodedi") != null) {
+                nomm = request.getParameter("txtnomm");
+                apee = request.getParameter("txtapee");
+                passs1 = request.getParameter("txtpass");
+                passs2 = request.getParameter("txtpascc");
+                tipp = "Cliente";
+                tell = request.getParameter("txttell");
+               Usuario usus = new Usuario(nomm, apee, passs1, tipp, tell);
+               if (a.modificarUsuario(usus,e)) {
+                       out.println("Modificado Correctamente");
+               }else{
+                   out.println("Error Al Modificar");
+               }
+           }
+                
                 
         %>
+      
       
     <!-- Fixed navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top">

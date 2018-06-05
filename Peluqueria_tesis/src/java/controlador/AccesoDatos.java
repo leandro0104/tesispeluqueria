@@ -24,7 +24,11 @@ public class AccesoDatos {
     Marca m;
     Producto pro;
     Trabajo t;
+
+
     Cita cit;
+
+
     HisMarca hm;
     HisCategoria hc;
     HisProveedor hp;
@@ -666,6 +670,7 @@ public class AccesoDatos {
             return null;
         }catch(Exception e){
             return null;
+
         }
     }
     
@@ -691,7 +696,7 @@ public class AccesoDatos {
         }
         return c;
     }
-    
+
     
         // Metodo para ingresar la modificacion a la tabla hist_categoria
     
@@ -740,6 +745,7 @@ public class AccesoDatos {
 
         }
     }
+<<<<<<< HEAD
       
       // Metodo para buscar proveedor segun el codigo
       
@@ -779,11 +785,24 @@ public class AccesoDatos {
             String mot = hp.getMotivo();
             sentencia = con.createStatement();
             String sql = "insert into hist_proveedor values (0,'"+idp+"','"+noman+"','"+nomnu+"','"+dira+"','"+dirn+"','"+telan+"','"+teln+"','"+mot+"')";
+=======
+    public boolean modificarUsuario(Usuario uu, String email){
+        try{
+            conexion();
+            String nom = uu.getNombre();
+            String ape = uu.getApellido();
+            String pas = uu.getPassword();
+            String tip = uu.getTipo();
+            String tel = uu.getTelefono();
+            sentencia = con.createStatement();
+            String sql = "update usuario set nom_usu='"+nom+"', ape_usu='"+ape+"', pass_usu='"+pas+"', tel_usu='"+tel+"' where email_usu='"+email+"'";
+>>>>>>> d15b220184402053c5923cfaff82477b39faa6a1
             sentencia.execute(sql);
             sentencia.close();
             desconexion();
             return true;
         }catch(SQLException e){
+<<<<<<< HEAD
             System.out.println(e.getMessage()+"error en sql");
             return false;
         }catch(Exception e){
@@ -819,6 +838,14 @@ public class AccesoDatos {
 
         }
     }    
+=======
+            return false;
+        }catch(Exception e){
+            return false;
+        }
+    }
+>>>>>>> d15b220184402053c5923cfaff82477b39faa6a1
     
 }
+
  
