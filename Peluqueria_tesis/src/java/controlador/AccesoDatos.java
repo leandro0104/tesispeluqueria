@@ -24,12 +24,11 @@ public class AccesoDatos {
     Marca m;
     Producto pro;
     Trabajo t;
-<<<<<<< HEAD
+
     Cita cit;
-=======
+
     HisMarca hm;
     HisCategoria hc;
->>>>>>> 523ed52dc45efbbbe77537affd383d296402e09f
     private ArrayList<Usuario> lisusu;
     private ArrayList<Proveedor> lisprov;
     private ArrayList<Categoria> liscat;
@@ -641,7 +640,7 @@ public class AccesoDatos {
         }
     }
      
-<<<<<<< HEAD
+
     // Metodo para listar trabajadores
     
     public ArrayList<Usuario> listarTrabajadores(){
@@ -668,7 +667,7 @@ public class AccesoDatos {
             return null;
         }catch(Exception e){
             return null;
-=======
+
      
     
     // Metodo para buscar marcas por categorias
@@ -693,7 +692,7 @@ public class AccesoDatos {
         }
         return c;
     }
-    
+
     
         // Metodo para ingresar la modificacion a la tabla hist_categoria
     
@@ -739,10 +738,30 @@ public class AccesoDatos {
         }catch(Exception e){
             System.out.println(e.getMessage()+"error codigo");
             return false;
->>>>>>> 523ed52dc45efbbbe77537affd383d296402e09f
+
+        }
+    }
+    public boolean modificarUsuario(Usuario uu, String email){
+        try{
+            conexion();
+            String nom = uu.getNombre();
+            String ape = uu.getApellido();
+            String pas = uu.getPassword();
+            String tip = uu.getTipo();
+            String tel = uu.getTelefono();
+            sentencia = con.createStatement();
+            String sql = "update usuario set nom_usu='"+nom+"', ape_usu='"+ape+"', pass_usu='"+pas+"', tel_usu='"+tel+"' where email_usu='"+email+"'";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            return false;
+        }catch(Exception e){
+            return false;
         }
     }
     
-    
 }
+
  
