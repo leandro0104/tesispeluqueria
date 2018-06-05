@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="controlador.AccesoDatos"%>
+<%@page import="modelo.*"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -75,33 +78,16 @@
 	<div class="container w">
 		<div class="row centered">
 			<br><br>
-			<div class="col-lg-3">
-				<img class="img-circle" src="assets/img/pic.jpg" width="110" height="110" alt="">
-                                <h4><a href="seleccionar_cita.jsp">Cristian Perez</a></h4>
-				<p>Asesor de imagen, estilista, colorista y maquillador profesional, con estudios y experiencia en Argentina, España, Francia e Italia.</p>
-				<p><a href="#">@Cristian_Perez</a></p>
-			</div><!-- col-lg-3 -->
-
-			<div class="col-lg-3">
-				<img class="img-circle" src="assets/img/pic2.jpg" width="110" height="110" alt="" href="seleccionar_cita.jsp">
-                                <h4><a href="seleccionar_cita.jsp">Jorge Guzman</a></h4>
-				<p>Estilista con más de 15 años de experiencia. Docente de Estética y Peluqueria en AIEP, miembro activo de del programa In Salon Artist.</p>
-				<p><a href="#">@Jorge_Guzman</a></p>
-			</div><!-- col-lg-3 -->
-
-			<div class="col-lg-3">
-				<img class="img-circle" src="assets/img/pic3.jpg" width="110" height="110" alt="">
-                                <h4><a href="seleccionar_cita.jsp">Fernando Acevedo</a></h4>
-				<p>Estilista desde hace más de 20 años, comenzó a los 14 años como asistente,trabaja con hombres y mujeres. Corte, color, mechas, balayage.</p>
-				<p><a href="#">@Fernando_Acevedo</a></p>
-			</div><!-- col-lg-3 -->
-
-			<div class="col-lg-3">
-				<img class="img-circle" src="assets/img/pic4.jpg" width="110" height="110" alt="">
-                                <h4><a href="seleccionar_cita.jsp">Daniela Diaz</a></h4>
-				<p>Peluquera cortadora, colorista y peinadora desde hace 7 años. Experta en Melenas, Rulos, balayage, freestyle, dip die y Fantasia.</p>
-				<p><a href="#">@Daniela_Diaz</a></p>
-			</div><!-- col-lg-3 -->
+			<%
+                            AccesoDatos a = new AccesoDatos();
+                            ArrayList<Usuario> listusu = new ArrayList();
+                            listusu = a.listarTrabajadores();
+                            for (Usuario u : listusu) {
+                                   out.println("<div class='col-lg-3'>");
+				out.println("<h4><a href='seleccionar_cita.jsp?trab="+u.getEmail()+"'>"+u.getNombre()+" "+u.getApellido()+"</h4>");
+                                out.println("</div>");
+                            }
+                        %>
 
 		</div><!-- row -->
 		<br>
@@ -109,115 +95,7 @@
 	</div><!-- container -->
 
 
-	<!-- PORTFOLIO SECTION -->
-	<div id="dg">
-		<div class="container">
-			<div class="row centered">
-				<h4>OUR SKILLS</h4>
-				<br>
-				
-			<!-- First Chart -->
-			<div class="col-lg-3">
-				<canvas id="canvas" height="130" width="130"></canvas>
-				<br>
-				<script>
-					var doughnutData = [
-							{
-								value: 70,
-								color:"#3498db"
-							},
-							{
-								value : 30,
-								color : "#ecf0f1"
-							}
-						];
-						var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);
-				</script>
-				<p><b>Design & Brand</b></p>
-				<p><small>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</small></p>
-			</div><!-- /col-lg-3 -->
-
-			<!-- Second Chart -->
-			<div class="col-lg-3">
-				<canvas id="canvas2" height="130" width="130"></canvas>
-				<br>
-				<script>
-					var doughnutData = [
-							{
-								value: 90,
-								color:"#3498db"
-							},
-							{
-								value : 10,
-								color : "#ecf0f1"
-							}
-						];
-						var myDoughnut = new Chart(document.getElementById("canvas2").getContext("2d")).Doughnut(doughnutData);
-				</script>
-				<p><b>Web Development</b></p>
-				<p><small>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</small></p>
-			</div><!-- /col-lg-3 -->
-			
-			<!-- Third Chart -->
-			<div class="col-lg-3">
-				<canvas id="canvas3" height="130" width="130"></canvas>
-				<br>
-				<script>
-					var doughnutData = [
-							{
-								value: 50,
-								color:"#3498db"
-							},
-							{
-								value : 50,
-								color : "#ecf0f1"
-							}
-						];
-						var myDoughnut = new Chart(document.getElementById("canvas3").getContext("2d")).Doughnut(doughnutData);
-				</script>
-				<p><b>Seo Services</b></p>
-				<p><small>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</small></p>
-			</div><!-- /col-lg-3 -->
-			
-			<!-- Fourth Chart -->
-			<div class="col-lg-3">
-				<canvas id="canvas4" height="130" width="130"></canvas>
-				<br>
-				<script>
-					var doughnutData = [
-							{
-								value: 80,
-								color:"#3498db"
-							},
-							{
-								value : 20,
-								color : "#ecf0f1"
-							}
-						];
-						var myDoughnut = new Chart(document.getElementById("canvas4").getContext("2d")).Doughnut(doughnutData);
-				</script>
-				<p><b>Printing</b></p>
-				<p><small>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</small></p>
-			</div><!-- /col-lg-3 -->
-				
-				
-			</div><!-- row -->
-		</div><!-- container -->
-	</div><!-- DG -->
-
-
-
 	
-	<div id="r">
-		<div class="container">
-			<div class="row centered">
-				<div class="col-lg-8 col-lg-offset-2">
-					<h4>WE ARE STORYTELLERS. BRANDS ARE OUR SUBJECTS. DESIGN IS OUR VOICE.</h4>
-					<p>We believe ideas come from everyone, everywhere. At BlackTie, everyone within our agency walls is a designer in their own right. And there are a few principles we believe—and we believe everyone should believe—about our design craft. These truths drive us, motivate us, and ultimately help us redefine the power of design.</p>
-				</div>
-			</div><!-- row -->
-		</div><!-- container -->
-	</div><! -- r wrap -->
 	
 	
 	<!-- FOOTER -->

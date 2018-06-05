@@ -24,6 +24,7 @@ public class AccesoDatos {
     Marca m;
     Producto pro;
     Trabajo t;
+    Cita cit;
     private ArrayList<Usuario> lisusu;
     private ArrayList<Proveedor> lisprov;
     private ArrayList<Categoria> liscat;
@@ -539,6 +540,26 @@ public class AccesoDatos {
         }
     }
     
+    public boolean insertarCita(Cita cit){
+        try{
+            conexion();
+            String tra = cit.getTra();
+            String cli = cit.getCli();
+            String dia = cit.getDia();
+            int codtra = cit.getCodtra();
+            String hor = cit.getHor();
+            String sql = "insert into cita values(NULL,'"+tra+"','"+cli+"','"+dia+"','"+codtra+"','"+hor+"')";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            return false;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
      public ArrayList<Trabajo> listarTrabajos(String cond){
         try{
             conexion();
@@ -567,5 +588,36 @@ public class AccesoDatos {
             return null;
         }
     }
+     
+    // Metodo para listar trabajadores
+    
+    public ArrayList<Usuario> listarTrabajadores(){
+        try{
+            conexion();
+            sentencia = con.createStatement();
+            String sql = "select * from usuario where tip_usu='Trabajador'";
+            rs = sentencia.executeQuery(sql);
+            lisusu = new ArrayList();
+            while(rs.next()){
+                String ema = rs.getString("email_usu");
+                String nom = rs.getString("nom_usu");
+                String ape = rs.getString("ape_usu");
+                String pass = rs.getString("pass_usu");
+                String tip = rs.getString("tip_usu");
+                String tel = rs.getString("tel_usu");
+                u = new Usuario(ema, nom, ape, pass, tip, tel);
+                lisusu.add(u);
+            }
+            sentencia.close();
+            desconexion();
+            return lisusu;
+        }catch(SQLException e){
+            return null;
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    
 }
  

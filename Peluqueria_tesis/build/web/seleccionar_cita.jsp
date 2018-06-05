@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="controlador.AccesoDatos"%>
+<%@page import="modelo.*"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -73,33 +76,58 @@
         
 	<div class="row centered">
             <br/>
-            <input type="date" width="500px" height="50px"> 
-            <select class="selectpicket" width="500px" height="50px">
-                    <option>BabyLights</option>
-                    <option>Balayage</option>
+            
+            <form id="form2" name="form2" method="post" action="seleccionar_cita.jsp">
+                <%
+                AccesoDatos a = new AccesoDatos();
+                String tr=request.getParameter("trab");
+                if (request.getParameter("btncon")!=null) {
+                        String usu = session.getAttribute("LOGIN").toString(); 
+                        String fec = request.getParameter("fec");
+                        int tra = Integer.parseInt(request.getParameter("tra"));
+                        String hor = request.getParameter("hor");
+                        Cita cit = new Cita(tr,usu,fec,tra,hor);
+                        if (a.insertarCita(cit)) {
+                            out.println("Se ha registrado la cita");
+                        }else{
+                            out.println("No se ha registrado la cita");
+                            out.println(tr+" "+usu+" "+fec+" "+tra+" "+hor);
+                        }
+                    }
+                %>
+                <input type="date" width="500px" height="50px" name="fec" id="fec"> 
+                <select class="selectpicket" width="500px" height="50px" name="tra" id="tra">
+                <%
+                    ArrayList<Trabajo> listra = new ArrayList();
+                    listra = a.listarTrabajos(tr);
+                    for (Trabajo t : listra) {
+                            out.println("<option value="+t.getCod()+">"+t.getNom()+"</option>");
+                    }
+                %>
             </select>
-            <select class="selectpicket" width="500px" height="50px">
-                    <option>9:00 AM</option>
-                    <option>10:00 AM</option>
-                    <option>11:00 AM</option>
-                    <option>12:00 PM</option>
-                    <option>13:00 PM</option>
-                    <option>14:00 PM</option>
-                    <option>15:00 PM</option>
-                    <option>16:00 PM</option>
-                    <option>17:00 PM</option>
-                    <option>18:00 PM</option>
-                    <option>19:00 PM</option>
+            <select class="selectpicket" width="500px" height="50px" name="hor" id="hor">
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="13:00 PM">13:00 PM</option>
+                <option value="14:00 PM">14:00 PM</option>
+                <option value="15:00 PM">15:00 PM</option>
+                <option value="16:00 PM">16:00 PM</option>
+                <option value="17:00 PM">17:00 PM</option>
+                <option value="18:00 PM">18:00 PM</option>
+                <option value="19:00 PM">19:00 PM</option>
             </select>
+           <% out.println("<button type='submit'  id='btncon' name='btncon' class='btn btn-primary'><a href='seleccionar_cita.jsp?trab="+tr+"'>Confirmar</a></button>");
+            %>
+            </form>
         </div>
         <div class="row centered">
             
         </div>
         <div class="row centered">
             <br/>
-            <form id="form2" name="form2" method="post" action="confirmacion.jsp">
-                <button type="submit"  id="btncon" name="btncon" class="btn btn-primary">Confirmar</button>
-            </form>
+            
         </div>
            
         
