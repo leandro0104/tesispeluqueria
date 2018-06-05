@@ -745,7 +745,6 @@ public class AccesoDatos {
 
         }
     }
-<<<<<<< HEAD
       
       // Metodo para buscar proveedor segun el codigo
       
@@ -785,7 +784,20 @@ public class AccesoDatos {
             String mot = hp.getMotivo();
             sentencia = con.createStatement();
             String sql = "insert into hist_proveedor values (0,'"+idp+"','"+noman+"','"+nomnu+"','"+dira+"','"+dirn+"','"+telan+"','"+teln+"','"+mot+"')";
-=======
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+           System.out.println(e.getMessage()+"error en sql");
+           return false;
+        }catch(Exception e){
+           System.out.println(e.getMessage()+"error en codigo");
+           return false;
+        }
+        
+    }
+
     public boolean modificarUsuario(Usuario uu, String email){
         try{
             conexion();
@@ -796,13 +808,13 @@ public class AccesoDatos {
             String tel = uu.getTelefono();
             sentencia = con.createStatement();
             String sql = "update usuario set nom_usu='"+nom+"', ape_usu='"+ape+"', pass_usu='"+pas+"', tel_usu='"+tel+"' where email_usu='"+email+"'";
->>>>>>> d15b220184402053c5923cfaff82477b39faa6a1
+
             sentencia.execute(sql);
             sentencia.close();
             desconexion();
             return true;
         }catch(SQLException e){
-<<<<<<< HEAD
+
             System.out.println(e.getMessage()+"error en sql");
             return false;
         }catch(Exception e){
@@ -813,7 +825,7 @@ public class AccesoDatos {
       
       
     // Metodo para modificar el proveedor
-        public boolean modificarproveedor(Proveedor p){
+    public boolean modificarproveedor(Proveedor p){
         try{
             conexion();
             int id = p.getId();
@@ -838,14 +850,10 @@ public class AccesoDatos {
 
         }
     }    
-=======
-            return false;
-        }catch(Exception e){
-            return false;
-        }
+  
     }
->>>>>>> d15b220184402053c5923cfaff82477b39faa6a1
+
     
-}
+
 
  
