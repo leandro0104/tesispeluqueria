@@ -24,12 +24,9 @@ public class AccesoDatos {
     Marca m;
     Producto pro;
     Trabajo t;
-<<<<<<< HEAD
     Cita cit;
-=======
     HisMarca hm;
     HisCategoria hc;
->>>>>>> 523ed52dc45efbbbe77537affd383d296402e09f
     private ArrayList<Usuario> lisusu;
     private ArrayList<Proveedor> lisprov;
     private ArrayList<Categoria> liscat;
@@ -641,7 +638,7 @@ public class AccesoDatos {
         }
     }
      
-<<<<<<< HEAD
+
     // Metodo para listar trabajadores
     
     public ArrayList<Usuario> listarTrabajadores(){
@@ -668,8 +665,8 @@ public class AccesoDatos {
             return null;
         }catch(Exception e){
             return null;
-=======
-     
+        }
+    }
     
     // Metodo para buscar marcas por categorias
     
@@ -739,7 +736,7 @@ public class AccesoDatos {
         }catch(Exception e){
             System.out.println(e.getMessage()+"error codigo");
             return false;
->>>>>>> 523ed52dc45efbbbe77537affd383d296402e09f
+
         }
     }
     
