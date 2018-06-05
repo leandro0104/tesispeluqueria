@@ -48,39 +48,40 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
   <body>
-    <%   
-        AccesoDatos a = new AccesoDatos();
-        // al presionar registrar
-        
-  if (request.getParameter("btnreg") != null) {
-       int id = 0;
-       String nombre = request.getParameter("txtnommar");
-       Marca m = new Marca(id, nombre);
-       if (a.registrarMarca(m)) {
-               out.println("Marca registrada correctamente");
-           }else{
-           out.println("Error al registrar");
-       }
-   }
-    
-    
-    %>
+   <%   
+       AccesoDatos a = new AccesoDatos();
+      int id = Integer.parseInt(request.getParameter("linkmodificar"));
+      Marca m = a.buscarMarca(id);
+      
+   %>
       
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Formulario para agregar Marcas</h1>
+                    <h1 class="page-header">Formulario de Modificacion de Marca</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
     <!-- formulario -->
     <div class="container-fluid">  
-        <form id="form1" name="form1" method="post" action="Marcas.jsp">
+        <form id="form1" name="form1" method="post" action="Modificacion_Marca.jsp">
               <div class="form-group row">
-                  <label for="marca" class="col-sm-2 col-form-label">Nombre de la Marca</label>
+                  <label for="marca" class="col-sm-2 col-form-label">Codigo de Marca</label>
                   <div class="col-sm-10">
-                      <input type="text" class="form-control" id="txtnommar" name="txtnommar" placeholder="Ingrese el nombre de la marca" required="required">
+                      <input type="text" class="form-control" id="txtcod" name="txtcod" required="required" value="<%=m.getId()%>" readonly="readonly">
                   </div>
               </div>
+            <div class="form-group row">
+                  <label for="marca" class="col-sm-2 col-form-label">Nombre de la Marca</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="txtnommar" name="txtnommar" required="required" value="<%=m.getNombre()%>">
+                  </div>
+              </div>
+            <div class="form-group row">
+                  <label for="marca" class="col-sm-2 col-form-label">Motivo de Modificacion</label>
+                  <div class="col-sm-10">
+                      <textarea class="form-control" id="txtmot" name="txtmot" required="required"></textarea>
+                  </div>
+            </div>
               <div class="form-group row">
                   <div class="col-sm-10">
                       <button type="submit" class="btn btn-primary" id="btnreg" name="btnreg" >Agregar Marca</button>
@@ -92,66 +93,10 @@
     <div>
         
     </div>
-    <div class="container">
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Modificar</th>
-                <th scope="col">Desactivar/Activar</th>
-            </tr>
-        </thead>
-        <tbody>
-     <%  
-       ArrayList<Marca> lismar = new ArrayList();
-       lismar = a.listarMarcas();
-       for (Marca mar : lismar) {
-            out.println("<tr>");
-              out.println("<th scope='row'>"+mar.getId()+"</th>");
-              out.println("<th>"+mar.getNombre()+"</th>");
-              out.println("<th><a href='Modificacion_Marca.jsp?linkmodificar="+mar.getId()+"'><span class='fa fa-pencil'></span></a></th>");
-              out.println("<th><a href='#'><span class='fa fa-remove'></span></a></th>");
-            out.println("</tr>");
-        }
-     %>
-        </tbody>
-    </table>
-    </div>
+  
     
  <!-- fin de formulario -->
  
-
-<!-- MODAL DESACTIVAR -->
-   <div class="modal fade" id="modaldesactivar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Desactivar Noticia</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <form>
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Ingrese Codigo de noticia a desactivar</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Motivo de desactivacion</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Confirmar</button>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL DESACTIVAR
             
     <!-- Javascript files-->
 
