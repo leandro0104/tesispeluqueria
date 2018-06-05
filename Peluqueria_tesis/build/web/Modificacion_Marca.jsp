@@ -4,7 +4,7 @@
     Author     : Leandro
 --%>
 
-<%@page import="modelo.Marca"%>
+<%@page import="modelo.*"%>
 <%@page import="controlador.AccesoDatos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList" %>
@@ -53,6 +53,20 @@
       int id = Integer.parseInt(request.getParameter("linkmodificar"));
       Marca m = a.buscarMarca(id);
       
+     if (request.getParameter("btnreg")!= null) {
+        String noma = request.getParameter("txtnommar");
+        String nomn = request.getParameter("txtnommarn");
+        String mot = request.getParameter("txtmot");
+        HisMarca hm = new HisMarca(id, noma, nomn, mot);
+        Marca mar = new Marca(id, nomn);
+        if (a.IngresarModificacionMarca(hm) && a.modificarmarca(mar)) {
+            out.println("Marca Modificada correctamente");    
+            
+        }else{
+            out.println("Error al modificar");
+        }
+     }
+      
    %>
       
             <div class="row">
@@ -63,21 +77,27 @@
             </div>
     <!-- formulario -->
     <div class="container-fluid">  
-        <form id="form1" name="form1" method="post" action="Modificacion_Marca.jsp">
+        <form id="form1" name="form1" method="post" action="">
               <div class="form-group row">
-                  <label for="marca" class="col-sm-2 col-form-label">Codigo de Marca</label>
+                  <label  class="col-sm-2 col-form-label">Codigo de Marca</label>
                   <div class="col-sm-10">
                       <input type="text" class="form-control" id="txtcod" name="txtcod" required="required" value="<%=m.getId()%>" readonly="readonly">
                   </div>
               </div>
             <div class="form-group row">
-                  <label for="marca" class="col-sm-2 col-form-label">Nombre de la Marca</label>
+                  <label  class="col-sm-2 col-form-label">Nombre Actual de la marca</label>
                   <div class="col-sm-10">
-                      <input type="text" class="form-control" id="txtnommar" name="txtnommar" required="required" value="<%=m.getNombre()%>">
+                      <input type="text" class="form-control" id="txtnommar" name="txtnommar" required="required" value="<%=m.getNombre()%>" readonly="readonly">
                   </div>
-              </div>
+            </div>
             <div class="form-group row">
-                  <label for="marca" class="col-sm-2 col-form-label">Motivo de Modificacion</label>
+                  <label  class="col-sm-2 col-form-label">Nombre Nuevo</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="txtnommarn" name="txtnommarn" required="required">
+                  </div>
+            </div>      
+            <div class="form-group row">
+                  <label  class="col-sm-2 col-form-label">Motivo de Modificacion</label>
                   <div class="col-sm-10">
                       <textarea class="form-control" id="txtmot" name="txtmot" required="required"></textarea>
                   </div>

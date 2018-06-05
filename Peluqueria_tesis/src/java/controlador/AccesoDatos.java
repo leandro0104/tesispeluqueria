@@ -24,6 +24,7 @@ public class AccesoDatos {
     Marca m;
     Producto pro;
     Trabajo t;
+    HisMarca hm;
     private ArrayList<Usuario> lisusu;
     private ArrayList<Proveedor> lisprov;
     private ArrayList<Categoria> liscat;
@@ -259,6 +260,54 @@ public class AccesoDatos {
             System.exit(0);
         }
         return m;
+    }
+    
+    // Metodo para ingresar la modificacion a la tabla hist_marca
+    
+    public boolean IngresarModificacionMarca(HisMarca hm){
+        try{
+            conexion();
+            int idh = hm.getIdhis();
+            int idm = hm.getIdmarca();
+            String noman = hm.getNomantiguo();
+            String nomnu = hm.getNomnuevo();
+            String mot = hm.getMotivo();
+            sentencia = con.createStatement();
+            String sql = "insert into hist_marca values (0,'"+idm+"','"+noman+"','"+nomnu+"','"+mot+"')";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage()+"error en sql");
+            return false;
+        }catch(Exception e){
+            System.out.println(e.getMessage()+"error en codigo");
+            return false;
+        }
+    }
+    
+    
+    // Metodo para modificar de la tabla marca
+    
+      public boolean modificarmarca(Marca m){
+        try{
+            conexion();
+            int id = m.getId();
+            String nom = m.getNombre();
+            sentencia = con.createStatement();
+            String sql = "update marca set nom_mar='"+nom+"' where id_marca='"+id+"'";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage()+"error en sql");
+            return false;
+        }catch(Exception e){
+            System.out.println(e.getMessage()+"error codigo");
+            return false;
+        }
     }
     
     //Metodo para registrar Proveedores
