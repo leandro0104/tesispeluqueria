@@ -104,7 +104,7 @@
             </div>
               <div class="form-group row">
                   <div class="col-sm-10">
-                      <button type="submit" class="btn btn-primary" id="btnreg" name="btnreg" >Agregar Marca</button>
+                      <button type="submit" class="btn btn-primary" id="btnreg" name="btnreg" >Modificar</button>
                   </div>
                   
               </div>
