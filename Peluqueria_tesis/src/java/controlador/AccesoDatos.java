@@ -25,6 +25,7 @@ public class AccesoDatos {
     Producto pro;
     Trabajo t;
     HisMarca hm;
+    HisCategoria hc;
     private ArrayList<Usuario> lisusu;
     private ArrayList<Proveedor> lisprov;
     private ArrayList<Categoria> liscat;
@@ -267,7 +268,6 @@ public class AccesoDatos {
     public boolean IngresarModificacionMarca(HisMarca hm){
         try{
             conexion();
-            int idh = hm.getIdhis();
             int idm = hm.getIdmarca();
             String noman = hm.getNomantiguo();
             String nomnu = hm.getNomnuevo();
@@ -616,5 +616,80 @@ public class AccesoDatos {
             return null;
         }
     }
+     
+     
+    
+    // Metodo para buscar marcas por categorias
+    
+    public Categoria buscarCategoria (int id){
+        try {
+            conexion();
+            sentencia = con.createStatement();
+            String sql = "select * from categoria where id_categoria='"+id+"'";
+            rs = sentencia.executeQuery(sql);
+            if (rs.next()) {
+                c = new Categoria(rs.getInt(id), rs.getString("nom_cat"));
+            }
+            sentencia.close();
+            desconexion();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"error en sql");
+            System.exit(0);
+        } catch (Exception e){
+            System.out.println(e.getMessage()+"error en codigo");
+            System.exit(0);
+        }
+        return c;
+    }
+    
+    
+        // Metodo para ingresar la modificacion a la tabla hist_categoria
+    
+    public boolean IngresarModificacionCategoria(HisCategoria hc){
+        try{
+            conexion();
+            int idc = hc.getIdcat();
+            String noman = hc.getNoma();
+            String nomnu = hc.getNomn();
+            String mot = hc.getMotivo();
+            sentencia = con.createStatement();
+            String sql = "insert into hist_categoria values (0,'"+idc+"','"+noman+"','"+nomnu+"','"+mot+"')";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage()+"error en sql");
+            return false;
+        }catch(Exception e){
+            System.out.println(e.getMessage()+"error en codigo");
+            return false;
+        }
+    }
+    
+    
+    // Metodo para modificar de la tabla categoria
+    
+      public boolean modificarcategoria(Categoria c){
+        try{
+            conexion();
+            int id = c.getId();
+            String nom = c.getNombre();
+            sentencia = con.createStatement();
+            String sql = "update categoria set nom_cat='"+nom+"' where id_categoria='"+id+"'";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage()+"error en sql");
+            return false;
+        }catch(Exception e){
+            System.out.println(e.getMessage()+"error codigo");
+            return false;
+        }
+    }
+    
+    
 }
  
