@@ -238,6 +238,29 @@ public class AccesoDatos {
  
     }
     
+       // Metodo para buscar marcas por codigo
+    
+    public Marca buscarMarca (int id){
+        try {
+            conexion();
+            sentencia = con.createStatement();
+            String sql = "select * from marca where id_marca='"+id+"'";
+            rs = sentencia.executeQuery(sql);
+            if (rs.next()) {
+                m = new Marca(rs.getInt(id),rs.getString("nom_mar"));
+            }
+            sentencia.close();
+            desconexion();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"error en sql");
+            System.exit(0);
+        } catch (Exception e){
+            System.out.println(e.getMessage()+"error en codigo");
+            System.exit(0);
+        }
+        return m;
+    }
+    
     //Metodo para registrar Proveedores
     
     public boolean registrarProveedor(Proveedor p){
