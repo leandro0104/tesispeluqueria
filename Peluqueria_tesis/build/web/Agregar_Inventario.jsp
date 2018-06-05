@@ -61,7 +61,8 @@
                                         out.println("Error al agregar");
                                     }
 
-                            }
+        }
+           
          
       %>
             <div class="row">
@@ -106,11 +107,10 @@
                  out.println("</div>");
 
                  out.println("<div class='form-group row'><label for='lbdes' class='col-sm-2 col-form-label'>Fecha de Ingreso</label><div class='col-sm-10'><input type='date' required='required' class='form-control' id='txtfec' name='txtfec' ></div></div><div class='form-group row'><label for='lbprov' class='col-sm-2 col-form-label'>Cantidad a Agregar</label><div class='col-sm-10'><input type='number' required='required' class='form-control' id='txtcant' name='txtcant' ></div></div><div class='form-group row'></div>");
-                 }
+                }
                 out.println("<div class='col-sm-10'><button type='submit' class='btn btn-primary' name='btnreg' id='btnreg'>Agregar al Stock</button></div>");
                 out.println("</form>");
-             }
-              
+                }
               %>
           
       </div> 
