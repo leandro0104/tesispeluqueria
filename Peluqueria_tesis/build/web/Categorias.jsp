@@ -110,7 +110,7 @@
             out.println("<tr>");
               out.println("<th scope='row'>"+cat.getId()+"</th>");
               out.println("<th>"+cat.getNombre()+"</th>");
-              out.println("<th><a href='#'><span class='fa fa-pencil'></span></a></th>");
+              out.println("<th><a href='Modificacion_Categoria.jsp?linkmodificar="+cat.getId()+"'><span class='fa fa-pencil'></span></a></th>");
               out.println("<th><a href='#'><span class='fa fa-remove'></span></a></th>");
             out.println("</tr>");
         }
@@ -121,40 +121,7 @@
     
  <!-- fin de formulario -->
  
- <!-- Modal Modificar -->
- 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Realizar Modificacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <form>
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Ingrese Codigo de noticia a modificar</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Motivo de Modificacion</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Continuar</button>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
- <!-- Fin de Modal Modificar -->
- 
- 
 <!-- MODAL DESACTIVAR -->
    <div class="modal fade" id="modaldesactivar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
