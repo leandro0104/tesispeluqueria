@@ -4,11 +4,7 @@
     Author     : Camila
 --%>
 
-<%-- 
-    Document   : index.jsp
-    Created on : 01-04-2018, 20:29:45
-    Author     : Leandro
---%>
+
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="modelo.Usuario"%>
 <%@page import="modelo.Servicio"%>
