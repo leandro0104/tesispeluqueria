@@ -57,7 +57,6 @@
             <li><a href="productos.jsp">PRODUCTOS</a></li>
             <li><a href="servicios.jsp">SERVICIOS</a></li>
             <li><a href="seleccionar_profesional.jsp">PIDE TU CITA</a></li>
-            <li><a data-toggle="modal" data-target="#myModal" href="#myModal"><span class="glyphicon glyphicon-user"></span></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -73,28 +72,38 @@
 		</div><!-- container -->
 	</div><!--  bluewrap -->
 
-        
-	<div class="row centered">
-            <br/>
-            
-            <form id="form2" name="form2" method="post" action="seleccionar_cita.jsp">
-                <%
+        <%
                 AccesoDatos a = new AccesoDatos();
                 String tr=request.getParameter("trab");
                 if (request.getParameter("btncon")!=null) {
-                        String usu = session.getAttribute("LOGIN").toString(); 
+                        String traba = request.getParameter("traba");    
+                        String usu = session.getAttribute("LOGIN").toString();
                         String fec = request.getParameter("fec");
                         int tra = Integer.parseInt(request.getParameter("tra"));
                         String hor = request.getParameter("hor");
-                        Cita cit = new Cita(tr,usu,fec,tra,hor);
+                        Cita cit = new Cita(traba,usu,fec,tra,hor);
                         if (a.insertarCita(cit)) {
                             out.println("Se ha registrado la cita");
                         }else{
                             out.println("No se ha registrado la cita");
-                            out.println(tr+" "+usu+" "+fec+" "+tra+" "+hor);
+                            out.println(traba+" "+usu+" "+fec+" "+tra+" "+hor);
                         }
                     }
                 %>
+	<div class="row centered">
+            <br/>
+            
+            <form id="form2" name="form2" method="post" action="seleccionar_cita.jsp">
+                
+                <select class="selectpicket" width="500px" height="50px" name="traba" id="traba">
+                <%
+                    ArrayList<Usuario> listusu = new ArrayList();
+                    listusu = a.listarTrabemail(tr);
+                    for (Usuario u : listusu) {
+                            out.println("<option value="+u.getEmail()+">"+u.getNombre()+" "+u.getApellido()+"</option>");
+                    }
+                %>
+            </select>
                 <input type="date" width="500px" height="50px" name="fec" id="fec"> 
                 <select class="selectpicket" width="500px" height="50px" name="tra" id="tra">
                 <%
@@ -118,7 +127,7 @@
                 <option value="18:00 PM">18:00 PM</option>
                 <option value="19:00 PM">19:00 PM</option>
             </select>
-           <% out.println("<button type='submit'  id='btncon' name='btncon' class='btn btn-primary'><a href='seleccionar_cita.jsp?trab="+tr+"'>Confirmar</a></button>");
+           <% out.println("<button type='submit'  id='btncon' name='btncon' class='btn btn-primary'>Confirmar</a></button>");
             %>
             </form>
         </div>

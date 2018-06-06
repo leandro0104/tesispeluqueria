@@ -603,7 +603,7 @@ public class AccesoDatos {
             String dia = cit.getDia();
             int codtra = cit.getCodtra();
             String hor = cit.getHor();
-            String sql = "insert into cita values(NULL,'"+tra+"','"+cli+"','"+dia+"','"+codtra+"','"+hor+"')";
+            String sql = "insert into cita values(0,'"+tra+"','"+cli+"','"+dia+"','"+codtra+"','"+hor+"');";
             sentencia.execute(sql);
             sentencia.close();
             desconexion();
@@ -862,7 +862,34 @@ public class AccesoDatos {
             return false;
         }
     }
+        //metodo para listar trabajadores por email
   
+        public ArrayList<Usuario> listarTrabemail(String cond){
+        try{
+            conexion();
+            sentencia = con.createStatement();
+            String sql = "select * from usuario where email_usu='"+cond+"'";
+            rs = sentencia.executeQuery(sql);
+            lisusu = new ArrayList();
+            while(rs.next()){
+                String ema = rs.getString("email_usu");
+                String nom = rs.getString("nom_usu");
+                String ape = rs.getString("ape_usu");
+                String pass = rs.getString("pass_usu");
+                String tip = rs.getString("tip_usu");
+                String tel = rs.getString("tel_usu");
+                u = new Usuario(ema, nom, ape, pass, tip, tel);
+                lisusu.add(u);
+            }
+            sentencia.close();
+            desconexion();
+            return lisusu;
+        }catch(SQLException e){
+            return null;
+        }catch(Exception e){
+            return null;
+        }
+    }
     }
 
     
