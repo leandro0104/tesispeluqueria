@@ -102,7 +102,7 @@
             
             <form id="form2" name="form2" method="post" action="seleccionar_cita.jsp">
                 
-                <select class="selectpicket" width="500px" height="50px" name="traba" id="traba">
+                <select class="selectpicket" width="500px" height="50px" name="traba" id="traba" hidden="hidden">
                 <%
                     ArrayList<Usuario> listusu = new ArrayList();
                     listusu = a.listarTrabemail(tr);
