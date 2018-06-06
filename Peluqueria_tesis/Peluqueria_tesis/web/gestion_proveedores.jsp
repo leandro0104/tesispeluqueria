@@ -120,70 +120,7 @@
     
  <!-- fin de formulario -->
  
- <!-- Modal Modificar -->
- 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Realizar Modificacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <form>
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Ingrese el rut del proveedor a modificar</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Ingrese Rut">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Motivo de Modificacion</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Continuar</button>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
- <!-- Fin de Modal Modificar -->
- 
- <!-- MODAL DESACTIVAR -->
-   <div class="modal fade" id="modaldesactivarpro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Desactivar Proveedor</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <form>
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Ingrese el rut del proveedor a desactivar</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Motivo de desactivacion</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Confirmar Desactivacion</button>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL DESACTIVAR
- 
  <!-- tabla de proveedor -->
        <div class="container">
     <table class="table table-bordered">
@@ -209,7 +146,7 @@
               out.println("<th>"+p.getDireccion()+"</th>");
               out.println("<th>"+p.getTelefono()+"</th>");
               out.println("<th>"+p.getCorreo()+"</th>");
-              out.println("<th><a href='#'><span class='fa fa-pencil'></span></a></th>");
+              out.println("<th><a href='Modificacion_Proveedor.jsp?linkmodificar="+p.getId()+"'><span class='fa fa-pencil'></span></a></th>");
               out.println("<th><a href='#'><span class='fa fa-remove'></span></a></th>");
             out.println("</tr>");
         }

@@ -19,6 +19,7 @@ public class AccesoDatos {
     private Statement sentencia;
     private ResultSet rs;
     Usuario u;
+    Usuario uu;
     Proveedor p;
     Categoria c;
     Marca m;
@@ -31,6 +32,7 @@ public class AccesoDatos {
 
     HisMarca hm;
     HisCategoria hc;
+    HisProveedor hp;
     private ArrayList<Usuario> lisusu;
     private ArrayList<Proveedor> lisprov;
     private ArrayList<Categoria> liscat;
@@ -744,7 +746,87 @@ public class AccesoDatos {
 
         }
     }
-    public boolean modificarUsuario(Usuario uu, String email){
+      
+      // Metodo para buscar proveedor segun el codigo
+      
+      public Proveedor buscarProveedor (int id){
+        try {
+            conexion();
+            sentencia = con.createStatement();
+            String sql = "select * from proveedor where id_prov='"+id+"'";
+            rs = sentencia.executeQuery(sql);
+            if (rs.next()) {
+                p = new Proveedor(rs.getInt(id),rs.getString("rut_prov"),rs.getString("nom_prov"),rs.getString("dir_prov"),rs.getInt("tel_prov"),rs.getString("correo_prov"),rs.getString("estado_prov"));
+            }
+            sentencia.close();
+            desconexion();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"error en sql");
+            System.exit(0);
+        } catch (Exception e){
+            System.out.println(e.getMessage()+"error en codigo");
+            System.exit(0);
+        }
+        return p;
+    }
+      
+      // Metodo para ingresar los registros de las modificaciones a la tabla de historial de modificaciones en los proveedores
+      
+      public boolean IngresarModificacionProveedor(HisProveedor hp){
+        try{
+            conexion();
+            int idp = hp.getIdp();
+            String noman = hp.getNomantiguo();
+            String nomnu = hp.getNomnuevo();
+            String dira = hp.getDirantiguo();
+            String dirn = hp.getDirnuevo();
+            int telan = hp.getTelantiguo();
+            int teln = hp.getTelnuevo();
+            String mot = hp.getMotivo();
+            sentencia = con.createStatement();
+            String sql = "insert into hist_proveedor values (0,'"+idp+"','"+noman+"','"+nomnu+"','"+dira+"','"+dirn+"','"+telan+"','"+teln+"','"+mot+"')";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+           System.out.println(e.getMessage()+"error en sql");
+           return false;
+        }catch(Exception e){
+           System.out.println(e.getMessage()+"error en codigo");
+           return false;
+        }
+        
+    }
+
+      
+    // Metodo para modificar el proveedor
+    public boolean modificarproveedor(Proveedor p){
+        try{
+            conexion();
+            int id = p.getId();
+            String rut = p.getRut();
+            String nom = p.getNombre();
+            String dir = p.getDireccion();
+            int tel = p.getTelefono();
+            String cor = p.getCorreo();
+            String est = p.getEstado();
+            sentencia = con.createStatement();
+            String sql = "update proveedor set rut_prov='"+rut+"', nom_prov='"+nom+"',dir_prov='"+dir+"',tel_prov='"+tel+"',correo_prov='"+cor+"',estado_prov='"+est+"' where id_prov='"+id+"'";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage()+"error en sql");
+            return false;
+        }catch(Exception e){
+            System.out.println(e.getMessage()+"error codigo");
+            return false;
+
+        }
+    }    
+     public boolean modificarUsuario(Usuario uu, String email){
         try{
             conexion();
             String nom = uu.getNombre();
@@ -753,7 +835,7 @@ public class AccesoDatos {
             String tip = uu.getTipo();
             String tel = uu.getTelefono();
             sentencia = con.createStatement();
-            String sql = "update usuario set nom_usu='"+nom+"', ape_usu='"+ape+"', pass_usu='"+pas+"', tel_usu='"+tel+"' where email_usu='"+email+"'";
+            String sql = "update usuario set nom_usu='"+nom+"', ape_usu='"+ape+"', tel_usu='"+tel+"' where email_usu='"+email+"'";
             sentencia.execute(sql);
             sentencia.close();
             desconexion();
@@ -764,7 +846,26 @@ public class AccesoDatos {
             return false;
         }
     }
+  public boolean modificarContraseñaUsuario(Usuario uu, String email){
+        try{
+            conexion();
+            String pas = uu.getPassword();
+            sentencia = con.createStatement();
+            String sql = "update usuario set  pass_usu='"+pas+"' where email_usu='"+email+"'";
+            sentencia.execute(sql);
+            sentencia.close();
+            desconexion();
+            return true;
+        }catch(SQLException e){
+            return false;
+        }catch(Exception e){
+            return false;
+        }
+    }
+  
+    }
+
     
-}
+
 
  

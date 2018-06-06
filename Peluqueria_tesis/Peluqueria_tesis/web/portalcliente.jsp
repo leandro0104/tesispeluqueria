@@ -42,10 +42,11 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
   </head>
+  
 
   <body>
 
-       <%
+      <%
           
             HttpSession sesion = request.getSession();
             if(sesion.getAttribute("usu") != null){
@@ -125,17 +126,27 @@
                 passs2 = request.getParameter("txtpascc");
                 tipp = "Cliente";
                 tell = request.getParameter("txttell");
-               Usuario usus = new Usuario(nomm, apee, passs1, tipp, tell);
+               Usuario usus = new Usuario(nomm, apee, tipp, tell);
                if (a.modificarUsuario(usus,e)) {
-                       out.println("Modificado Correctamente");
+                      
+                      out.println("<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Modificado</strong> Se ha modificado correctamente.</div>");
                }else{
-                   out.println("Error Al Modificar");
+                        out.println("<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Modificado</strong> Error al modificar</div>");
+               }
+           }
+               if (request.getParameter("btnmodcontra") != null) {
+                passs1 = request.getParameter("txtpasss");
+                passs2 = request.getParameter("txtpascc");
+               Usuario usus = new Usuario(passs1);
+               if (a.modificarContraseñaUsuario(usus,e)) {
+                      out.println("<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Modificado</strong> Se ha modificado correctamente.</div>");
+               }else{
+                        out.println("<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Modificado</strong> Error al modificar</div>");
                }
            }
                 
                 
         %>
-      
       
     <!-- Fixed navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -277,8 +288,6 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-<!-- Modal inicio de editar de Usuario-->
- 
 <div class="modal fade" id="modaleditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -289,37 +298,35 @@
         </button>
       </div>
       <div class="modal-body">
-          <form>
+          <form id="form2" name="form2" method="post" action="portalcliente.jsp">
               
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Contraseña</label>
-                  <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Ingrese su Contraseña">
+              <div class="form-group row">
+                  <label for="Email" class="col-sm-2 col-form-label">Correo Electronico</label>
+                  <div class="col-sm-10">
+                      <input type="email" class="form-control" id="txtemaa" name="txtemaa"  value="<%=u.getEmail() %>" disabled="DISABLED">
+                  </div>
               </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Confirmar Contraseña</label>
-                  <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Confirmar contraseña">
+              <div class="form-group row">
+                  <label for="lbnom" class="col-sm-2 col-form-label">Nombre</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="txtnomm" name="txtnomm"  value="<%=u.getNombre() %>">
+                  </div>
               </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Nombre de Usuario</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Ingrese su nombre de usuario">
+              <div class="form-group row">
+                  <label for="lbape" class="col-sm-2 col-form-label">Apellidos</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="txtapee" name="txtapee"  value="<%=u.getApellido() %>">
+                  </div>
               </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Nombres</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Ingrese sus nombres">
+              
+              <div class="form-group row">
+                  <label for="lbtel" class="col-sm-2 col-form-label">Telefono</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="txttell" name="txttell" value="<%=u.getTelefono() %>">
+                  </div>
               </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Apellido Paterno</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Ingrese su apellido Paterno">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Apellido Materno</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Ingrese su apellido Materno">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Imagen de Perfil</label>
-                  <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="texto" placeholder="Ingrese imagen de perfil">
-              </div>
-              <button type="submit" class="btn btn-primary" style="background-color: #F34D2F; border-color: #F34D2F;">Modificar</button>
+                  <button type="submit" id="btnmodedi" name="btnmodedi" class="btn btn-primary" style="background-color: #F34D2F; border-color: #F34D2F;">Modificar</button>
+          <button type="submit" id="btnmodcon" name="btnmodcon" class="btn btn-primary" data-toggle="modal" data-target="#modaleditarcontraseña" style="background-color: #F34D2F; border-color: #F34D2F;">Cambiar Contraseña</button>
           </form>
       </div>
       
@@ -328,6 +335,44 @@
 </div>
 
  <!-- Fin de Modal editar usuario-->
+ 
+<!-- Modal inicio de editar de Usuario-->
+ 
+<div class="modal fade" id="modaleditarcontraseña" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #686868">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">Editar datos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form id="form6" name="form6" method="post" action="portalcliente.jsp">
+              
+              
+              <div class="form-group row">
+                  <label for="lbpas" class="col-sm-2 col-form-label">Ingrese nueva contraseña</label>
+                  <div class="col-sm-10">
+                      <input type="password" class="form-control" id="txtpasss" name="txtpasss"  >
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="lbpasc" class="col-sm-2 col-form-label">Confirmar Contraseña</label>
+                  <div class="col-sm-10">
+                      <input type="password" class="form-control" id="txtpascc" name="txtpascc"  >
+                  </div>
+              </div>
+
+                  <button type="submit" id="btnmodcontra" name="btnmodcontra" class="btn btn-primary" style="background-color: #F34D2F; border-color: #F34D2F;">Cambiar Contraseña</button>
+          </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+ <!-- Fin de Modal modificar contraseña-->
  
   <!-- Modal Modificar -->
  
@@ -373,8 +418,7 @@
            <div class="form-group">
      
                   <label for="exampleFormControlTextarea1">Tratamiento</label>
-                  <input type="text" id="txttto" name="txttto" class="form-control"  aria-describedby="texto" placeholder="">
-              </div>
+                  <input type="text" id="txttto" name="txttto" value="" class="form-control"  aria-describedby="texto" placeholder="" value="<%%>">
               <div class="form-group">
                   <label for="exampleFormControlTextarea1">Dia</label>
                   <input type="text" id="txtdia" name="txtdia" class="form-control" aria-describedby="texto" placeholder="">

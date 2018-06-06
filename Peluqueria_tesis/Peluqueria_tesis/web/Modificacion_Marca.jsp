@@ -51,26 +51,27 @@
    <%   
        AccesoDatos a = new AccesoDatos();
       int id = Integer.parseInt(request.getParameter("linkmodificar"));
-      Categoria c = a.buscarCategoria(id);
+      Marca m = a.buscarMarca(id);
       
-     if (request.getParameter("btnreg")!=null) {
-        String noma = request.getParameter("txtnomcat");
-        String nomn = request.getParameter("txtnomcatn");
-        String mot = request.getParameter("txtmot");    
-        HisCategoria hc = new HisCategoria(id, noma, nomn, mot);
-        Categoria cat = new Categoria(id, nomn);
-        if (a.IngresarModificacionCategoria(hc) && a.modificarcategoria(cat)) {
-                out.println("Categoria Modificada correctamente"); 
+     if (request.getParameter("btnreg")!= null) {
+        String noma = request.getParameter("txtnommar");
+        String nomn = request.getParameter("txtnommarn");
+        String mot = request.getParameter("txtmot");
+        HisMarca hm = new HisMarca(id, noma, nomn, mot);
+        Marca mar = new Marca(id, nomn);
+        if (a.IngresarModificacionMarca(hm) && a.modificarmarca(mar)) {
+            out.println("Marca Modificada correctamente");    
+            
         }else{
-            out.println("Error al modificar"); 
+            out.println("Error al modificar");
         }
-    }
+     }
       
    %>
       
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Formulario de Modificacion de Categoria</h1>
+                    <h1 class="page-header">Formulario de Modificacion de Marca</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -78,21 +79,21 @@
     <div class="container-fluid">  
         <form id="form1" name="form1" method="post" action="">
               <div class="form-group row">
-                  <label  class="col-sm-2 col-form-label">Codigo de Categoria</label>
+                  <label  class="col-sm-2 col-form-label">Codigo de Marca</label>
                   <div class="col-sm-10">
-                      <input type="text" class="form-control" id="txtcod" name="txtcod" required="required" value="<%=c.getId()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="txtcod" name="txtcod" required="required" value="<%=m.getId()%>" readonly="readonly">
                   </div>
               </div>
             <div class="form-group row">
-                  <label  class="col-sm-2 col-form-label">Nombre Actual de la Categoria</label>
+                  <label  class="col-sm-2 col-form-label">Nombre Actual de la marca</label>
                   <div class="col-sm-10">
-                      <input type="text" class="form-control" id="txtnomcat" name="txtnomcat" required="required" value="<%=c.getNombre()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="txtnommar" name="txtnommar" required="required" value="<%=m.getNombre()%>" readonly="readonly">
                   </div>
             </div>
             <div class="form-group row">
                   <label  class="col-sm-2 col-form-label">Nombre Nuevo</label>
                   <div class="col-sm-10">
-                      <input type="text" class="form-control" id="txtnomcatn" name="txtnomcatn" required="required">
+                      <input type="text" class="form-control" id="txtnommarn" name="txtnommarn" required="required">
                   </div>
             </div>      
             <div class="form-group row">
@@ -103,7 +104,7 @@
             </div>
               <div class="form-group row">
                   <div class="col-sm-10">
-                      <button type="submit" class="btn btn-primary" id="btnreg" name="btnreg" >Agregar Marca</button>
+                      <button type="submit" class="btn btn-primary" id="btnreg" name="btnreg" >Modificar</button>
                   </div>
                   
               </div>
