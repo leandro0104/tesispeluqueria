@@ -40,6 +40,7 @@ public class AccesoDatos {
     private ArrayList<Servicio> lista;
     private ArrayList<Producto> listpro;
     private ArrayList<Trabajo> listra;
+    private ArrayList<Cita> listcit;
     // Metodo para conectarse
     
     private boolean conexion(){
@@ -603,14 +604,17 @@ public class AccesoDatos {
             String dia = cit.getDia();
             int codtra = cit.getCodtra();
             String hor = cit.getHor();
-            String sql = "insert into cita values(0,'"+tra+"','"+cli+"','"+dia+"','"+codtra+"','"+hor+"');";
+            sentencia = con.createStatement();
+            String sql = "INSERT INTO cita VALUES(NULL, '"+tra+"', '"+cli+"', '"+dia+"', "+codtra+", '"+hor+"')";
             sentencia.execute(sql);
             sentencia.close();
             desconexion();
             return true;
         }catch(SQLException e){
+            System.out.println(e + "es de sql");
             return false;
         }catch(Exception e){
+            System.out.println(e + "es de java");
             return false;
         }
     }
@@ -624,7 +628,7 @@ public class AccesoDatos {
             listra = new ArrayList();
             while(rs.next()){
                 int cod = rs.getInt("cod_tra");
-                String nom = rs.getString("nom_tra");;
+                String nom = rs.getString("nom_tra");
                 int pre = rs.getInt("pre_tra");
                 String desc = rs.getString("desc_tra");
                 String img = rs.getString("img_tra");
@@ -644,7 +648,34 @@ public class AccesoDatos {
         }
     }
      
-
+     public ArrayList<Cita> listarCita(String cond){
+        try{
+            conexion();
+            sentencia = con.createStatement();
+            String consulta = "select cita.cod_cit, cita.email_cli, cita.dia_cit, trabajos.nom_tra, cita.hor_cit from cita, usuario, trabajos where cita.email_usu=usuario.email_usu and cita.cod_tra=trabajos.cod_tra and usuario.email_usu='"+cond+"';";
+            rs = sentencia.executeQuery(consulta);
+            listcit = new ArrayList();
+            while(rs.next()){
+                int cod = rs.getInt("cod_cit");
+                String nom = rs.getString("email_cli");
+                String dia = rs.getString("dia_cit");
+                String tra = rs.getString("nom_tra");
+                String hor = rs.getString("hor_cit");
+                Cita cit = new Cita(cod,nom,dia,hor,tra);
+                listcit.add(cit);
+            }
+            sentencia.close();
+            desconexion();
+            return listcit;
+        }catch(SQLException e1){
+            System.exit(0);
+            return null;
+        }catch(Exception e2){
+            System.exit(0);
+            return null;
+        }
+    }
+     
     // Metodo para listar trabajadores
     
     public ArrayList<Usuario> listarTrabajadores(){

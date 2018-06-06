@@ -57,6 +57,7 @@
             <li><a href="productos.jsp">PRODUCTOS</a></li>
             <li><a href="servicios.jsp">SERVICIOS</a></li>
             <li><a href="seleccionar_profesional.jsp">PIDE TU CITA</a></li>
+            <li><a href="portalcliente.jsp">MI PERFIL</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -74,19 +75,25 @@
 
         <%
                 AccesoDatos a = new AccesoDatos();
+                String traba;
+                String usu;
+                String fec;
+                int tra;
+                String hor;
                 String tr=request.getParameter("trab");
                 if (request.getParameter("btncon")!=null) {
-                        String traba = request.getParameter("traba");    
-                        String usu = session.getAttribute("LOGIN").toString();
-                        String fec = request.getParameter("fec");
-                        int tra = Integer.parseInt(request.getParameter("tra"));
-                        String hor = request.getParameter("hor");
+                        traba = request.getParameter("traba");    
+                        usu = session.getAttribute("LOGIN").toString();
+                        fec = request.getParameter("fec");
+                        tra = Integer.parseInt(request.getParameter("tra"));
+                        hor = request.getParameter("hor");
                         Cita cit = new Cita(traba,usu,fec,tra,hor);
                         if (a.insertarCita(cit)) {
                             out.println("Se ha registrado la cita");
+                           // out.println(traba+" "+usu+" "+fec+" "+tra+" "+hor);
                         }else{
                             out.println("No se ha registrado la cita");
-                            out.println(traba+" "+usu+" "+fec+" "+tra+" "+hor);
+                           // out.println(traba+" "+usu+" "+fec+" "+tra+" "+hor);
                         }
                     }
                 %>
@@ -127,8 +134,7 @@
                 <option value="18:00 PM">18:00 PM</option>
                 <option value="19:00 PM">19:00 PM</option>
             </select>
-           <% out.println("<button type='submit'  id='btncon' name='btncon' class='btn btn-primary'>Confirmar</a></button>");
-            %>
+          <button type="submit"  id="btncon" name="btncon" class="btn btn-primary">Confirmar</button>
             </form>
         </div>
         <div class="row centered">

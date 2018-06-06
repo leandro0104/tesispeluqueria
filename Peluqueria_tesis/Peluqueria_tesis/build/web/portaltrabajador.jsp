@@ -151,7 +151,6 @@
               </ul>
             </li>
             <li> <a href="agregar_trabajos.jsp" target="ventana"> <i class="icon-grid"></i>Agregar Trabajos </a></li>
-            <li> <a href="trabajos.jsp" target="ventana"> <i class="icon-grid"></i>Trabajos </a></li>
             <li> <a href="reportes.jsp" target="ventana"> <i class="fa fa-bar-chart"></i>Graficos e Informes </a></li>
             <li><a href="ventas.jsp" target="ventana"><i class="icon-interface-windows"></i>Ventas</li>
             

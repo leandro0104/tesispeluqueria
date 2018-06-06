@@ -7,6 +7,8 @@ public class Cita {
     private String dia;
     private int codtra;
     private String hor;
+    private String ser;
+    private String ape;
 
     public Cita(int cod, String tra, String cli, String dia, int codtra, String hor) {
         this.cod = cod;
@@ -23,6 +25,18 @@ public class Cita {
         this.dia = dia;
         this.codtra = codtra;
         this.hor = hor;
+    }
+
+    public Cita(int cod, String cli, String dia, String hor, String ser) {
+        this.cod = cod;
+        this.cli = cli;
+        this.dia = dia;
+        this.hor = hor;
+        this.ser = ser;
+    }
+
+    public String getApe() {
+        return ape;
     }
 
     public int getCod() {
@@ -48,6 +62,8 @@ public class Cita {
     public String getHor() {
         return hor;
     }
-    
+    public String getSer() {
+        return ser;
+    }
     
 }

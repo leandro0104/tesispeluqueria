@@ -57,7 +57,8 @@
             <li><a href="productos.jsp">PRODUCTOS</a></li>
             <li><a href="servicios.jsp">SERVICIOS</a></li>
             <li class="active"><a href="seleccionar_profesional.jsp">PIDE TU CITA</a></li>
-            <li><a data-toggle="modal" data-target="#myModal" href="#myModal"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li><a href="portalcliente.jsp">MI PERFIL</a></li>
+           
           </ul>
         </div><!--/.nav-collapse -->
       </div>
