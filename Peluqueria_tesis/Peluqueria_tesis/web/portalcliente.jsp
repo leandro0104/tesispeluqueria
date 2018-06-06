@@ -4,7 +4,11 @@
     Author     : Camila
 --%>
 
-
+<%-- 
+    Document   : index.jsp
+    Created on : 01-04-2018, 20:29:45
+    Author     : Leandro
+--%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="modelo.Usuario"%>
 <%@page import="modelo.Servicio"%>
@@ -140,7 +144,8 @@
                         out.println("<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Modificado</strong> Error al modificar</div>");
                }
            }
-                
+               
+      
                 
         %>
       
@@ -234,14 +239,14 @@
                 lista = a.listarServicio(nombre);
                 for(int i=0;i<lista.size();i++){
                     Servicio s = lista.get(i);
-                    
+                    int cod= s.getCod();
                     out.println("<tr>");
                         out.println("<td>"+s.getTto()+"</td>");
                         out.println("<td>"+s.getDia()+"</td>");
                         out.println("<td>"+s.getHora()+"</td>");
                         out.println("<td>"+s.getTelefono()+"</td>");
                         out.println("<td>"+s.getProfesional()+"</td>");
-                        out.println("<td><a data-toggle='modal' id='btnmod' name='btnmod' href='#modalmodificarcita'><span class='glyphicon glyphicon-edit'></span></a></td>");
+                        out.println("<td><a href='modificarcita.jsp?linkmodificar="+cod+"'><span class='glyphicon glyphicon-edit'></span></a></td>");
                         out.println("<td><a data-toggle='modal' id='btncam' name='btncam' href='#modalcancelarcita'><span class='glyphicon glyphicon-remove-circle'></span></a></td>");
                     out.println("</tr>");
                 }
@@ -372,75 +377,9 @@
  
   <!-- Modal Modificar -->
  
-<div class="modal fade" id="modalmodificarcita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header"style="background-color: #686868">
-        <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">Realizar Modificacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <form id="formmodi" name="formmodi" method="post" action="portalcliente.jsp">
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Ingrese Opción para Modificar</label>
-                  <input type="text" class="form-control" id="txtdat" name="txtdat" aria-describedby="texto" placeholder="Ingrese tratamiento, dia, hora, numero de telefono o profesional">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Motivo de Modificacion</label>
-                  <textarea class="form-control" id="txtmot" name="txtmot" rows="3"></textarea>
-              </div>
-              <button type="submit" id="btnreg" name="btnreg" class="btn btn-primary" data-toggle="modal" data-target="#modalmodificarcit" style="background-color: #F34D2F; border-color: #F34D2F;">Continuar</button>
-          </form>
-      </div>
-      
-    </div>
-  </div>
-</div>
 
- <!-- Fin de Modal Modificar -->
- <div class="modal fade" id="modalmodificarcit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: #686868">
-        <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">Modificar Cita</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <form id="formmod" name="formmod" method="post" action="portalcliente.jsp">
-           <div class="form-group">
-     
-                  <label for="exampleFormControlTextarea1">Tratamiento</label>
-                  <input type="text" id="txttto" name="txttto" value="" class="form-control"  aria-describedby="texto" placeholder="" value="<%%>">
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Dia</label>
-                  <input type="text" id="txtdia" name="txtdia" class="form-control" aria-describedby="texto" placeholder="">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Hora</label>
-                  <input type="text" class="form-control" id="txthora" name="txthora" aria-describedby="texto" placeholder="">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Telefono</label>
-                  <input type="number" class="form-control" id="txttelef" name="txttelef"  placeholder="">
-              </div>
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Profesional</label>
-                  <input type="text" class="form-control" id="txtprof" name="txtprof" aria-describedby="texto" placeholder="">
-              </div>
-              
-              <button type="submit" class="btn btn-primary" id="btnmod" name="btnmod" style="background-color: #F34D2F; border-color: #F34D2F;">Modificar</button>
-          </form>
-              
-      </div>
-      
-    </div>
-  </div>
-</div>
 
+ 
  <!-- Fin de Modal modificar cita-->
  <!-- MODAL DESACTIVAR -->
    <div class="modal fade" id="modalcancelarcita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

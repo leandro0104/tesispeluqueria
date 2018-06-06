@@ -40,6 +40,10 @@ public Servicio( String tto, String dia, String hora, String telefono, String pr
         this.profesional = profesional;
         this.nombre =nombre;
     }
+    public Servicio (int cod){
+        this.cod=cod;
+            }
+
      public int getCod() {
         return cod;
     }

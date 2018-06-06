@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="controlador.AccesoDatos"%>
+<%@page import="modelo.*"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -45,6 +48,10 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
   <body>
+      <%
+          AccesoDatos a = new AccesoDatos();
+   
+          %>
       <div class="modal fade" id="modpreg">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -101,50 +108,34 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Tratamiento</th>
                                     <th scope="col">Día</th>
                                     <th scope="col">Hora</th>
-                                    <th scope="col">Número de télefono</th>
                                     <th scope="col">Confirmar</th>
                                     <th scope="col">Modificar</th>
                                     <th scope="col">Generar Voucher</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Juana Perez</td>
-                                    <td>Balayage</td>
-                                    <td>11/04/2018</td>
-                                    <td>15:00</td>
-                                    <td>987654321</td>
-                                    <td><input type="button" value="Confirmar"></td>
-                                    <td><input type="button" value="Modificar"></td>
-                                    <td><a data-toggle="modal" data-target="#modalvaucher" href="#modalvaucher">Generar</a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Rosa Espinoza</td>
-                                    <td>Tintura</td>
-                                    <td>13/04/2018</td>
-                                    <td>14:00</td>
-                                    <td>987654321</td>
-                                    <td><input type="button" value="Confirmar"></td>
-                                    <td><input type="button" value="Modificar"></td>
-                                    <td><a data-toggle="modal" data-target="#modalvaucher" href="#modalvaucher">Generar</a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Carolina Rojas</td>
-                                    <td>Baño de color</td>
-                                    <td>20/04/2018</td>
-                                    <td>12:00</td>
-                                    <td>987654321</td>
-                                    <td><input type="button" value="Confirmar"></td>
-                                    <td><input type="button" value="Modificar"></td>
-                                    <td><a data-toggle="modal" data-target="#modalvaucher" href="#modalvaucher">Generar</a></td>
-                                </tr>
+                                <%
+                                    String us = session.getAttribute("LOGIN").toString();
+                                    ArrayList<Cita> listcit = new ArrayList();
+                                    listcit = a.listarCita(us);
+                                    for (Cita c : listcit) {
+                                        out.println("<tr>");
+                                        out.println("<th scope='row'>"+c.getCod()+"</th>");
+                                        out.println("<td>"+c.getCli()+"</td>");
+                                        out.println("<td>"+c.getSer()+"</td>");
+                                        out.println("<td>"+c.getDia()+"</td>");
+                                        out.println("<td>"+c.getHor()+"</td>");
+                                        out.println("<td><input type='button' value='Confirmar'></td>");
+                                        out.println("<td><input type='button' value='Modificar'></td>");
+                                        out.println("<td><a data-toggle='modal' data-target='#modalvaucher' href='#modalvaucher'>Generar</a></td>");
+                                        out.println("</tr>");
+                                    }
+                                %>
+                                
                             </tbody>
                         </table>
                         </form>

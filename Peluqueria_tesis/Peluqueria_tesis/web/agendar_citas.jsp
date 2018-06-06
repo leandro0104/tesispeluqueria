@@ -4,6 +4,9 @@
     Author     : Cote
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="controlador.AccesoDatos"%>
+<%@page import="modelo.*"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,6 +47,29 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
   <body>
+      <%
+          AccesoDatos a = new AccesoDatos();
+          String traba;
+          String ema;
+          String fec;
+          int tra;
+          String hor;
+                if (request.getParameter("btnreg") != null) {
+                        traba =  session.getAttribute("LOGIN").toString();    
+                        ema = request.getParameter("txtema");
+                        fec = request.getParameter("fec");
+                        tra = Integer.parseInt(request.getParameter("tra"));
+                        hor = request.getParameter("hor");
+                        Cita cit = new Cita(traba,ema,fec,tra,hor);
+                        if (a.insertarCita(cit)) {
+                            out.println("Se ha registrado la cita");
+                            //out.println(traba+" "+ema+" "+fec+" "+tra+" "+hor);
+                        }else{
+                            out.println("No se ha registrado la cita");
+                           // out.println(traba+" "+ema+" "+fec+" "+tra+" "+hor);
+                        }
+                    }
+          %>
       <div class="modal fade" id="modpreg">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -65,61 +91,61 @@
         </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registrar Usuario</h1>
+                    <h1 class="page-header">Registrar Citas</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
     <!-- formulario -->
     <div class="container-fluid">  
-          <form>
+          <form id="form1" name="form1" method="post" action="agendar_citas.jsp">
               <div class="form-group row">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                   <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputEmail3" placeholder="Nombre">
+                      <input type="text" class="form-control" id="txtema" name="txtema" placeholder="Email">
                   </div>
               </div>
               <div class="form-group row">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Tratamiento</label>
                   <div class="col-sm-10">
-                      <select class="form-control" width="500px" height="50px">
-                        <option>BabyLights</option>
-                        <option>Balayage</option>
+                      <select class="form-control" width="500px" height="50px" id="tra" name="tra">
+                        <%
+                            ArrayList<Trabajo> listra = new ArrayList();
+                            String m= session.getAttribute("LOGIN").toString();
+                            listra = a.listarTrabajos(m);
+                            for (Trabajo t : listra) {
+                                    out.println("<option value='"+t.getCod()+"'>"+t.getNom()+"</option>");
+                            }
+                %>
                       </select>
                   </div>
               </div>
               <div class="form-group row">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Día</label>
                   <div class="col-sm-10">
-                      <input type="date">
+                      <input type="date" width="500px" height="50px" name="fec" id="fec">
                   </div>
               </div>
               <div class="form-group row">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Hora</label>
                   <div class="col-sm-10">
-                        <select class="form-control" width="500px" height="50px">
-                            <option>9:00 AM</option>
-                            <option>10:00 AM</option>
-                            <option>11:00 AM</option>
-                            <option>12:00 PM</option>
-                            <option>13:00 PM</option>
-                            <option>14:00 PM</option>
-                            <option>15:00 PM</option>
-                            <option>16:00 PM</option>
-                            <option>17:00 PM</option>
-                            <option>18:00 PM</option>
-                            <option>19:00 PM</option>
+                        <select class="form-control" width="500px" height="50px" name="hor" id="hor">
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="13:00 PM">13:00 PM</option>
+                            <option value="14:00 PM">14:00 PM</option>
+                            <option value="15:00 PM">15:00 PM</option>
+                            <option value="16:00 PM">16:00 PM</option>
+                            <option value="17:00 PM">17:00 PM</option>
+                            <option value="18:00 PM">18:00 PM</option>
+                            <option value="19:00 PM">19:00 PM</option>
                         </select>
                   </div>
               </div>
               <div class="form-group row">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">Número de telefono</label>
                   <div class="col-sm-10">
-                      <input type="number" class="form-control" id="inputEmail3" placeholder="Número de telefono">
-                  </div>
-              </div>
-              <div class="form-group row">
-                  <div class="col-sm-10">
-                      <button type="submit" class="btn btn-primary">Registrar</button>
+                      <button type="submit" class="btn btn-primary" id="btnreg" name="btnreg">Registrar</button>
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Modificar</button>
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldesactivarusu">Desactivar</button>
                   </div>
